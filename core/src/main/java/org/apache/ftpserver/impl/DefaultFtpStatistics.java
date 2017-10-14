@@ -252,7 +252,7 @@ public class DefaultFtpStatistics implements ServerFtpStatistics {
     public synchronized int getCurrentUserLoginNumber(final User user,
             final InetAddress ipAddress) {
         UserLogins userLogins = userLoginTable.get(user.getName());
-        if (userLogins == null) {// not found the login user's statistics info
+        if (userLogins == null || ipAddress == null) {// Adding a check for null ip if dns resolution fails
             return 0;
         } else {
             return userLogins.loginsFromInetAddress(ipAddress).get();
